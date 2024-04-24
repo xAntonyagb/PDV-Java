@@ -21,10 +21,10 @@ public class ItemVendaTableModel extends DefaultTableModel {
         for (ItemVenda itemVenda : listItemVenda) {
             this.addRow(new String[] {
                 itemVenda.getProduto().getDescricao(),
-                Double.toString(itemVenda.getProduto().getValorUnitario()),
+                Double.toString(itemVenda.getValorUnitario()),
+                Double.toString(itemVenda.getQuantidade()),
                 Double.toString(itemVenda.getDescontoProduto()),
-                Double.toString(itemVenda.getValorTotal()),
-                Double.toString(itemVenda.getQuantidade())});
+                Double.toString(itemVenda.getValorTotal())});
         }
     }
     

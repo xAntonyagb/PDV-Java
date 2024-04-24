@@ -21,6 +21,8 @@ public class Venda {
     private int id;
     @OneToOne
     private Cliente cliente;
+    @OneToOne
+    private Cliente vendedor;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemVenda> itemVenda;
     @Column(name = "vl_total")
@@ -29,16 +31,21 @@ public class Venda {
     private double valorDesconto;
     @Column(name = "qt_itens")
     private int quantidadeItens;
+    @Column(name = "cpf_nota")
+    private String cpfNota;
 
     public Venda() {
     }
 
-    public Venda(int id, Cliente cliente, double valorTotal, double valorDesconto, int quantidadeItens) {
+    public Venda(int id, Cliente cliente, Cliente vendedor, List<ItemVenda> itemVenda, double valorTotal, double valorDesconto, int quantidadeItens, String cpfNota) {
         this.id = id;
         this.cliente = cliente;
+        this.vendedor = vendedor;
+        this.itemVenda = itemVenda;
         this.valorTotal = valorTotal;
         this.valorDesconto = valorDesconto;
         this.quantidadeItens = quantidadeItens;
+        this.cpfNota = cpfNota;
     }
 
     public int getId() {
@@ -87,5 +94,21 @@ public class Venda {
 
     public void setItemVenda(List<ItemVenda> itemVenda) {
         this.itemVenda = itemVenda;
+    }
+
+    public Cliente getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Cliente vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public String getCpfNota() {
+        return cpfNota;
+    }
+
+    public void setCpfNota(String cpfNota) {
+        this.cpfNota = cpfNota;
     }
 }

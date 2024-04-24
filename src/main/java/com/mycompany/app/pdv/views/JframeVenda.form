@@ -86,7 +86,7 @@
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="5" rowCount="7">
+                      <Table columnCount="5" rowCount="0">
                         <Column editable="false" title="Produto" type="java.lang.Object"/>
                         <Column editable="false" title="Valor Unit." type="java.lang.Object"/>
                         <Column editable="false" title="Qtd." type="java.lang.Object"/>
@@ -244,7 +244,7 @@
                                   <Component id="jPanel14" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="btAtualizarTabela" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btIreport" min="-2" max="-2" attributes="0"/>
                                   <Component id="btAddProdutos" min="-2" pref="530" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -257,7 +257,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jPanel13" min="-2" pref="152" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                          <Component id="btAtualizarTabela" min="-2" max="-2" attributes="0"/>
+                          <Component id="btIreport" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btAddProdutos" min="-2" pref="75" max="-2" attributes="0"/>
                           <EmptySpace pref="186" max="32767" attributes="0"/>
@@ -379,6 +379,7 @@
                         <Component class="javax.swing.JTextField" name="jFieldCpfCnpj">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
+                            <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="jFieldCliente">
@@ -391,9 +392,6 @@
                               <Dimension value="[64, 40]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFieldClienteActionPerformed"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel1">
                           <Properties>
@@ -534,9 +532,6 @@
                               <Dimension value="[64, 40]"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFieldVendedorActionPerformed"/>
-                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel4">
                           <Properties>
@@ -584,12 +579,12 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="btAtualizarTabela">
+                <Component class="javax.swing.JButton" name="btIreport">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Atualizar tabela"/>
+                    <Property name="text" type="java.lang.String" value="Ireport"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAtualizarTabelaActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btIreportActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

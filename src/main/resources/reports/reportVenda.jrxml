@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportVenda" pageWidth="226" pageHeight="283" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b38a95ae-6cd1-42d7-9cce-379c8795c719">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="venda_id" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT * FROM tb_cliente]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="nr_cpf" class="java.lang.String"/>
+	<field name="nm_cliente" class="java.lang.String"/>
+	<field name="nr_telefone" class="java.lang.String"/>
+	<title>
+		<band height="47" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="100" y="2" width="100" height="20" uuid="49cf31b0-96fb-47d7-80b7-edd3872b2f44"/>
+				<text><![CDATA[nr_cpf]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="17" width="100" height="20" uuid="583a9db0-9635-478e-bc83-c269e7b81722"/>
+				<text><![CDATA[nm_cliente]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<textField>
+				<reportElement x="86" y="24" width="100" height="20" uuid="da676a4c-fb74-423d-81eb-77a9a4cb3e2b"/>
+				<textFieldExpression><![CDATA[$F{nr_cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="44" width="100" height="20" uuid="b5872418-2f41-451d-b02e-ca43fca59df2"/>
+				<textFieldExpression><![CDATA[$F{nm_cliente}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="23" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
