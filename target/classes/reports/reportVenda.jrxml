@@ -1,50 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportVenda" pageWidth="226" pageHeight="283" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b38a95ae-6cd1-42d7-9cce-379c8795c719">
-	<property name="ireport.zoom" value="3.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportVenda" pageWidth="226" pageHeight="283" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Error" uuid="b38a95ae-6cd1-42d7-9cce-379c8795c719">
+	<property name="ireport.zoom" value="3.630000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="228"/>
 	<parameter name="venda_id" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[SELECT * FROM tb_cliente]]>
+		<![CDATA[SELECT
+cv.nm_cliente as nm_vendedor,
+c.nm_cliente as nm_cliente,
+v.cpf_nota,
+v.metodo_pagamento,
+v.qt_itens,
+v.vl_desconto,
+v.vl_total
+
+FROM tb_venda v
+INNER JOIN tb_item_venda iv ON v.id = iv.venda_id
+INNER JOIN tb_cliente c ON c.id = v.cliente_id
+INNER JOIN tb_cliente cv ON cv.id = v.vendedor_id
+WHERE v.id = $P{venda_id}
+LIMIT 1;]]>
 	</queryString>
-	<field name="id" class="java.lang.Integer"/>
-	<field name="nr_cpf" class="java.lang.String"/>
+	<field name="nm_vendedor" class="java.lang.String"/>
 	<field name="nm_cliente" class="java.lang.String"/>
-	<field name="nr_telefone" class="java.lang.String"/>
+	<field name="cpf_nota" class="java.lang.String"/>
+	<field name="metodo_pagamento" class="java.lang.String"/>
+	<field name="qt_itens" class="java.lang.Integer"/>
+	<field name="vl_desconto" class="java.lang.Double"/>
+	<field name="vl_total" class="java.lang.Double"/>
 	<title>
-		<band height="47" splitType="Stretch"/>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="186" height="47" uuid="524f9092-32f6-4901-85d8-dab09ae1af43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Cupom de Venda]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="43" splitType="Stretch">
-			<staticText>
-				<reportElement x="100" y="2" width="100" height="20" uuid="49cf31b0-96fb-47d7-80b7-edd3872b2f44"/>
-				<text><![CDATA[nr_cpf]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="0" y="17" width="100" height="20" uuid="583a9db0-9635-478e-bc83-c269e7b81722"/>
-				<text><![CDATA[nm_cliente]]></text>
-			</staticText>
-		</band>
+		<band splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="100" splitType="Stretch">
+		<band height="45" splitType="Stretch">
 			<textField>
-				<reportElement x="86" y="24" width="100" height="20" uuid="da676a4c-fb74-423d-81eb-77a9a4cb3e2b"/>
-				<textFieldExpression><![CDATA[$F{nr_cpf}]]></textFieldExpression>
+				<reportElement x="0" y="20" width="82" height="20" uuid="a0879931-bd4d-4bd0-b592-60d3fb772300"/>
+				<textFieldExpression><![CDATA[$F{nm_vendedor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="44" width="100" height="20" uuid="b5872418-2f41-451d-b02e-ca43fca59df2"/>
+				<reportElement x="104" y="20" width="82" height="20" uuid="a1ea8bd9-8c4c-419a-90f8-9df611a12458"/>
 				<textFieldExpression><![CDATA[$F{nm_cliente}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="82" height="20" uuid="8fda1f7f-4fc8-415a-8ebd-e51cb2080dec"/>
+				<text><![CDATA[Vendedor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="104" y="0" width="82" height="20" uuid="b3bc2ac4-33a3-458d-9a13-9c95578a4ecc"/>
+				<text><![CDATA[Cliente]]></text>
+			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="23" splitType="Stretch"/>
+		<band height="57" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="60" height="20" uuid="8cff2783-a996-4c51-b71a-671a2cb9b8eb"/>
+				<textFieldExpression><![CDATA[$F{vl_total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="72" y="0" width="32" height="20" uuid="a0dd90e6-bbcc-4551-b2a7-55f3c6d074d9"/>
+				<text><![CDATA[Qtd:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="60" height="20" uuid="0c17e37d-e819-4a41-aec3-b5fc6f667ed1"/>
+				<text><![CDATA[Valor total:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="0" width="56" height="20" uuid="ac620bd2-265b-4090-aa72-b36791519f9e"/>
+				<text><![CDATA[Desconto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="72" y="20" width="32" height="20" uuid="74de4a5e-4472-48d9-90f3-4cabbc588afa"/>
+				<textFieldExpression><![CDATA[$F{qt_itens}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="20" width="56" height="20" uuid="188e0b4f-27ff-4692-b618-f28af77e9867"/>
+				<textFieldExpression><![CDATA[$F{vl_desconto}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
-		<band height="23" splitType="Stretch"/>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="66" height="20" uuid="0a34e412-ea91-4514-b1fa-195117364a8f"/>
+				<textFieldExpression><![CDATA[$F{cpf_nota}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="82" y="20" width="104" height="20" uuid="342fe987-3bb7-496d-b6d6-ba0a92a32813"/>
+				<textFieldExpression><![CDATA[$F{metodo_pagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="66" height="20" uuid="1732de4d-d5af-49ed-b8ff-63198265cb07"/>
+				<text><![CDATA[CPF na nota:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="82" y="0" width="104" height="20" uuid="0608f4ea-8af2-477d-af1e-8fed33d59ece"/>
+				<text><![CDATA[metodo_pagamento]]></text>
+			</staticText>
+		</band>
 	</pageFooter>
 </jasperReport>

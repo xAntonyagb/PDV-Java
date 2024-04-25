@@ -243,10 +243,7 @@
                                   <Component id="jPanel13" alignment="0" max="32767" attributes="0"/>
                                   <Component id="jPanel14" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="btIreport" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btAddProdutos" min="-2" pref="530" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="btAddProdutos" alignment="1" min="-2" pref="530" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="10" max="32767" attributes="0"/>
                       </Group>
@@ -256,9 +253,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="jPanel13" min="-2" pref="152" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
-                          <Component id="btIreport" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="136" max="-2" attributes="0"/>
                           <Component id="btAddProdutos" min="-2" pref="75" max="-2" attributes="0"/>
                           <EmptySpace pref="186" max="32767" attributes="0"/>
                           <Component id="jPanel14" min="-2" pref="79" max="-2" attributes="0"/>
@@ -295,6 +290,9 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btNovoActionPerformed"/>
                       </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+                      </AuxValues>
                     </Component>
                     <Component class="javax.swing.JButton" name="btFinalizar">
                       <Properties>
@@ -579,14 +577,6 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="btIreport">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Ireport"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btIreportActionPerformed"/>
-                  </Events>
-                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

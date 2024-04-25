@@ -27,6 +27,7 @@ public class JframeVenda extends javax.swing.JFrame {
     private Cliente vendedor;
     private Venda venda;
     private boolean cpfNaNota = false;
+    private double vlTotal;
 
     public JframeVenda() {   
         initComponents();
@@ -67,7 +68,6 @@ public class JframeVenda extends javax.swing.JFrame {
         jFieldVendedor = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         btSelecionarVendedor = new javax.swing.JButton();
-        btIreport = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
@@ -340,13 +340,6 @@ public class JframeVenda extends javax.swing.JFrame {
         });
         jPanel14.add(btSelecionarVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 35, 190, -1));
 
-        btIreport.setText("Ireport");
-        btIreport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btIreportActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -358,18 +351,14 @@ public class JframeVenda extends javax.swing.JFrame {
                     .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btIreport)
-                        .addComponent(btAddProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btAddProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101)
-                .addComponent(btIreport)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(136, 136, 136)
                 .addComponent(btAddProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -427,8 +416,10 @@ public class JframeVenda extends javax.swing.JFrame {
             this.venda.setItemVenda(listaItemVenda);
             this.venda.setQuantidadeItens(qtdItens);
             this.venda.setCpfNota(this.cpfNaNota ? this.jFieldCpfCnpj.getText() : "Não");
+            this.venda.setValorTotal(vlTotal);
             
-            JFrameFinalizarVenda frame = new JFrameFinalizarVenda(this.venda);
+            
+            JFrameFinalizarVenda frame = new JFrameFinalizarVenda(this.venda, this);
             frame.setResizable(false);
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -442,6 +433,10 @@ public class JframeVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btFinalizarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
+        limparVenda();
+    }//GEN-LAST:event_btNovoActionPerformed
+    
+    public void limparVenda() {
         this.cliente = null;
         this.vendedor = null;
         setCliente(this.cliente);
@@ -454,7 +449,7 @@ public class JframeVenda extends javax.swing.JFrame {
         tableItens.setModel(model);
         
         exibirValorTotal();
-    }//GEN-LAST:event_btNovoActionPerformed
+    }
     
     private void btAddProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAddProdutosActionPerformed
         JFrameConsultaProduto frame = new JFrameConsultaProduto(this);
@@ -477,8 +472,6 @@ public class JframeVenda extends javax.swing.JFrame {
     }//GEN-LAST:event_btSelecionarVendedorActionPerformed
 
     private void removerFocoPricipal(JFrame frame) {
-        frame.setAlwaysOnTop(true);
-        
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
@@ -493,17 +486,6 @@ public class JframeVenda extends javax.swing.JFrame {
         });
     }
     
-    private void btIreportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIreportActionPerformed
-        //Ireport
-        Venda venda = new Venda();
-        venda.setId(1);
-        try {
-            ReportUtils.relatorioVenda(venda);
-        } catch (JRException ex) {
-            Logger.getLogger(JframeVenda.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btIreportActionPerformed
-
     public void addNovoItemToTable(ItemVenda item) {
         this.listaItemVenda.add(item);
         
@@ -518,6 +500,7 @@ public class JframeVenda extends javax.swing.JFrame {
         for(ItemVenda item : listaItemVenda) {
             total += item.getValorTotal();
         }
+        this.vlTotal = total;
         
         jLabelSubtotal.setText(Double.toString(total));
     }
@@ -565,8 +548,7 @@ public class JframeVenda extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAddProdutos;
     private javax.swing.JButton btFinalizar;
-    private javax.swing.JButton btIreport;
-    private javax.swing.JButton btNovo;
+    public javax.swing.JButton btNovo;
     private javax.swing.JButton btSelecionarCliente;
     private javax.swing.JButton btSelecionarVendedor;
     private javax.swing.JCheckBox jCheckBoxCpfNota;

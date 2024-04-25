@@ -56,14 +56,14 @@
                                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jFieldDescontos" min="-2" pref="86" max="-2" attributes="0"/>
+                                      <Component id="jFieldDescontoTotal" min="-2" pref="86" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="metodoPgmt" min="-2" pref="151" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxMetodoPgmt" min="-2" pref="151" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -74,11 +74,11 @@
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="fieldDescontoFinal" min="-2" pref="101" max="-2" attributes="0"/>
+                                  <Component id="jFieldDescontoFinal" min="-2" pref="101" max="-2" attributes="0"/>
                                   <EmptySpace pref="49" max="32767" attributes="0"/>
                                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jfieldSubTotal" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="jFieldSubTotal" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Component id="btCancelarVenda" min="-2" pref="156" max="-2" attributes="0"/>
@@ -106,22 +106,22 @@
                   <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="metodoPgmt" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jComboBoxMetodoPgmt" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="jfieldSubTotal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFieldSubTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                          <Component id="fieldDescontoFinal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jFieldDescontoFinal" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="22" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jFieldDescontos" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jFieldDescontoTotal" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="2" pref="2" max="-2" attributes="0"/>
@@ -167,7 +167,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCancelarVendaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="metodoPgmt">
+        <Component class="javax.swing.JComboBox" name="jComboBoxMetodoPgmt">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
@@ -211,12 +211,12 @@
             <Property name="text" type="java.lang.String" value="-------------------------------------"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jfieldSubTotal">
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jfieldSubTotalKeyReleased"/>
-          </Events>
+        <Component class="javax.swing.JTextField" name="jFieldSubTotal">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jFieldDescontos">
+        <Component class="javax.swing.JTextField" name="jFieldDescontoTotal">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -236,10 +236,7 @@
             <Property name="text" type="java.lang.String" value="Desconto:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="fieldDescontoFinal">
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="fieldDescontoFinalKeyReleased"/>
-          </Events>
+        <Component class="javax.swing.JTextField" name="jFieldDescontoFinal">
         </Component>
       </SubComponents>
     </Container>

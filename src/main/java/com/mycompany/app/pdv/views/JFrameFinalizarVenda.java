@@ -1,6 +1,17 @@
 package com.mycompany.app.pdv.views;
 
+import com.mycompany.app.pdv.entities.ItemVenda;
 import com.mycompany.app.pdv.entities.Venda;
+import com.mycompany.app.pdv.exceptions.ValidationException;
+import com.mycompany.app.pdv.reports.ReportUtils;
+import com.mycompany.app.pdv.services.VendaService;
+import com.mycompany.app.pdv.util.FieldFormatterUtil;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -9,11 +20,34 @@ import com.mycompany.app.pdv.entities.Venda;
 public class JFrameFinalizarVenda extends javax.swing.JFrame {
     
     private Venda venda;
+    private JframeVenda frameVenda;
 
-    public JFrameFinalizarVenda(Venda venda) {
+    public JFrameFinalizarVenda(Venda venda, JframeVenda frameVenda) {
         this.venda = venda;
-        
+        this.frameVenda = frameVenda;
         initComponents();
+        
+        jFieldSubTotal.setText(Double.toString(venda.getValorTotal()));
+        jFieldVlTotal.setText(Double.toString(venda.getValorTotal()));
+        jFieldDescontoFinal.setText("0");
+        atualizarCampos();
+        
+        
+        
+        jFieldDescontoFinal.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                atualizarCampos();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) { }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                atualizarCampos();
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -23,18 +57,18 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         btFinalizarVenda = new javax.swing.JButton();
         btCancelarVenda = new javax.swing.JButton();
-        metodoPgmt = new javax.swing.JComboBox<>();
+        jComboBoxMetodoPgmt = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jFieldVlTotal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jfieldSubTotal = new javax.swing.JTextField();
-        jFieldDescontos = new javax.swing.JTextField();
+        jFieldSubTotal = new javax.swing.JTextField();
+        jFieldDescontoTotal = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        fieldDescontoFinal = new javax.swing.JTextField();
+        jFieldDescontoFinal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +88,7 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
             }
         });
 
-        metodoPgmt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crédito", "Débito", "Dinheiro" }));
+        jComboBoxMetodoPgmt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Crédito", "Débito", "Dinheiro" }));
 
         jLabel1.setText("Método de pagamento:");
 
@@ -68,13 +102,9 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
 
         jLabel5.setText("-------------------------------------");
 
-        jfieldSubTotal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jfieldSubTotalKeyReleased(evt);
-            }
-        });
+        jFieldSubTotal.setEnabled(false);
 
-        jFieldDescontos.setEnabled(false);
+        jFieldDescontoTotal.setEnabled(false);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -82,12 +112,6 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
         jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel7.setText("Desconto:");
-
-        fieldDescontoFinal.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                fieldDescontoFinalKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -107,12 +131,12 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
                                     .addGap(25, 25, 25)
                                     .addComponent(jLabel3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFieldDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jFieldDescontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(20, 20, 20)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(metodoPgmt, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jComboBoxMetodoPgmt, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -120,11 +144,11 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldDescontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jFieldDescontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jfieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jFieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btCancelarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -144,18 +168,18 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(metodoPgmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxMetodoPgmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jfieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jFieldSubTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(fieldDescontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jFieldDescontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jFieldDescontos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jFieldDescontoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(2, 2, 2)
                 .addComponent(jLabel5)
@@ -187,26 +211,102 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarVendaActionPerformed
-
+        String descontoText = FieldFormatterUtil.ajustaNumberInput(jFieldDescontoFinal.getText());
+        String subtotalText = FieldFormatterUtil.ajustaNumberInput(jFieldSubTotal.getText());
+        try{
+            double descontoFinal = Double.parseDouble(descontoText);
+            double subtotal = Double.parseDouble(subtotalText);
+            
+            if (subtotal <= 0) {
+                throw new ValidationException("O valor mínimo possível é 0.0");
+            }
+            if (descontoFinal > 100) {
+                throw new ValidationException("O máximo de desconto possível é 100%");
+            }
+            
+            
+            this.venda.setValorTotal(Double.parseDouble(jFieldVlTotal.getText()));
+            this.venda.setValorDesconto(Double.parseDouble(jFieldDescontoTotal.getText()));
+            Object selectedItem = jComboBoxMetodoPgmt.getSelectedItem();
+            this.venda.setMetodoPagamento(selectedItem != null ? selectedItem.toString() : null);
+            
+            for(ItemVenda item : this.venda.getItemVenda()) {
+                item.setVenda(this.venda);
+            }
+            
+            VendaService vendaService = new VendaService();
+            Venda retorno = vendaService.insert(this.venda);
+            
+            JOptionPane.showMessageDialog(null, "Venda feita com sucesso: "+ retorno.getId(), "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            this.frameVenda.limparVenda();
+            
+            try {
+                ReportUtils.relatorioVenda(retorno);
+            } catch (JRException ex) {
+                Logger.getLogger(JframeVenda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            dispose();
+        }
+        catch(ValidationException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Input inválido", JOptionPane.ERROR_MESSAGE);
+        }
+        catch(Exception ex) {
+            System.out.println("Erro ao inserir venda");
+        }
     }//GEN-LAST:event_btFinalizarVendaActionPerformed
-
-    private void jfieldSubTotalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jfieldSubTotalKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jfieldSubTotalKeyReleased
-
-    private void fieldDescontoFinalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldDescontoFinalKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fieldDescontoFinalKeyReleased
 
     private void btCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarVendaActionPerformed
         dispose();
     }//GEN-LAST:event_btCancelarVendaActionPerformed
 
+    private void atualizarCampos() {
+    String descontoText = FieldFormatterUtil.ajustaNumberInput(jFieldDescontoFinal.getText());
+    String subtotalText = FieldFormatterUtil.ajustaNumberInput(jFieldSubTotal.getText());
+
+    try {
+        double vlTotalVenda = this.venda.getValorTotal();
+        double descontoFinal = Double.parseDouble(descontoText);
+        double subtotal = Double.parseDouble(subtotalText);
+        
+        subtotal = Math.round(vlTotalVenda - (vlTotalVenda * (descontoFinal / 100)));
+        descontoFinal = Math.round(100 - ((subtotal * 100) / vlTotalVenda));
+        
+        if (subtotal <= 0) {
+            throw new ValidationException("O valor mínimo possível é 0.0");
+        }
+        if (descontoFinal > 100) {
+            throw new ValidationException("O máximo de desconto possível é 100%");
+        }
+        
+        double vlDescontoTotal = vlTotalVenda - subtotal;
+        
+        double vlDescontoProdutos = 0;
+        for(ItemVenda item : this.venda.getItemVenda()) {
+            vlDescontoProdutos += ((item.getDescontoProduto() / 100) * item.getValorUnitario()) * item.getQuantidade();
+        }
+        
+        vlDescontoTotal += vlDescontoProdutos;
+        
+        jFieldDescontoTotal.setText(Double.toString(vlDescontoTotal));
+        jFieldVlTotal.setText(Double.toString(subtotal));
+    } 
+    catch (NumberFormatException ex) {
+        System.out.println("Erro ao transformar números");
+    }
+    catch (ValidationException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(), "Input inválido", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btCancelarVenda;
     private javax.swing.JButton btFinalizarVenda;
-    private javax.swing.JTextField fieldDescontoFinal;
-    private javax.swing.JTextField jFieldDescontos;
+    private javax.swing.JComboBox<String> jComboBoxMetodoPgmt;
+    private javax.swing.JTextField jFieldDescontoFinal;
+    private javax.swing.JTextField jFieldDescontoTotal;
+    private javax.swing.JTextField jFieldSubTotal;
     private javax.swing.JTextField jFieldVlTotal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -216,7 +316,5 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jfieldSubTotal;
-    private javax.swing.JComboBox<String> metodoPgmt;
     // End of variables declaration//GEN-END:variables
 }

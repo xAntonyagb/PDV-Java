@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,7 +18,7 @@ public class ItemVenda {
     private int id;
     @OneToOne
     private Produto produto;
-    @OneToOne
+    @ManyToOne
     private Venda venda;
     @Column(name = "ds_itemvenda")
     private String descricao;

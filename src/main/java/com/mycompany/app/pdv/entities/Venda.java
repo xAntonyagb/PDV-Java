@@ -23,7 +23,7 @@ public class Venda {
     private Cliente cliente;
     @OneToOne
     private Cliente vendedor;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ItemVenda> itemVenda;
     @Column(name = "vl_total")
     private double valorTotal;
@@ -31,13 +31,15 @@ public class Venda {
     private double valorDesconto;
     @Column(name = "qt_itens")
     private int quantidadeItens;
+    @Column(name = "metodo_pagamento")
+    private String metodoPagamento;
     @Column(name = "cpf_nota")
     private String cpfNota;
 
     public Venda() {
     }
 
-    public Venda(int id, Cliente cliente, Cliente vendedor, List<ItemVenda> itemVenda, double valorTotal, double valorDesconto, int quantidadeItens, String cpfNota) {
+    public Venda(int id, Cliente cliente, Cliente vendedor, List<ItemVenda> itemVenda, double valorTotal, double valorDesconto, int quantidadeItens, String metodoPagamento, String cpfNota) {
         this.id = id;
         this.cliente = cliente;
         this.vendedor = vendedor;
@@ -45,6 +47,7 @@ public class Venda {
         this.valorTotal = valorTotal;
         this.valorDesconto = valorDesconto;
         this.quantidadeItens = quantidadeItens;
+        this.metodoPagamento = metodoPagamento;
         this.cpfNota = cpfNota;
     }
 
@@ -111,4 +114,13 @@ public class Venda {
     public void setCpfNota(String cpfNota) {
         this.cpfNota = cpfNota;
     }
+
+    public String getMetodoPagamento() {
+        return metodoPagamento;
+    }
+
+    public void setMetodoPagamento(String metodoPagamento) {
+        this.metodoPagamento = metodoPagamento;
+    }
+    
 }

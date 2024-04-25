@@ -3,14 +3,10 @@ D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\vi
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\util\FieldFormatterUtil.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\reports\ReportUtils.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\services\VendaService.java
-D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\views\JpanelFinalizarVenda.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\tablemodels\ClienteTableModel.java
-D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\views\JpanelOpcoesProduto.java
-D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\views\JpanelConsultaCliente.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\entities\Cliente.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\tablemodels\ProdutoTableModel.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\services\ProdutoService.java
-D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\views\JpanelConsultaProduto.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\repositories\ItemVendaRepositoryImp.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\entities\Venda.java
 D:\Faculdade\Programacao DeskTop\PDV-Java\src\main\java\com\mycompany\app\pdv\repositories\ProdutoRepository.java
