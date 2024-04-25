@@ -95,7 +95,7 @@ public class JframeVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Valor Unit.", "Qtd.", "Desconto", "Valor total"
+                "Produto", "Valor Unit.", "Qtd.", "Desconto (%)", "Valor total"
             }
         ) {
             boolean[] canEdit = new boolean [] {

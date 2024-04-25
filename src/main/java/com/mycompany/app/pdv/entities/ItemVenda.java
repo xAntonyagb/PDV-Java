@@ -108,4 +108,10 @@ public class ItemVenda {
     public void setDescontoProduto(double descontoProduto) {
         this.descontoProduto = descontoProduto;
     }
+
+    @Override
+    public String toString() {
+        return "Produto = " + produto.getDescricao() + ", qtd = " + quantidade + ", Total = " + valorTotal + ", valorUnitario = " + valorUnitario + ", descontoProduto = " + descontoProduto;
+    }
+    
 }

@@ -212,14 +212,8 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
 
     private void btFinalizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarVendaActionPerformed
         String descontoText = FieldFormatterUtil.ajustaNumberInput(jFieldDescontoFinal.getText());
-        String subtotalText = FieldFormatterUtil.ajustaNumberInput(jFieldSubTotal.getText());
         try{
             double descontoFinal = Double.parseDouble(descontoText);
-            double subtotal = Double.parseDouble(subtotalText);
-            
-            if (subtotal <= 0) {
-                throw new ValidationException("O valor mínimo possível é 0.0");
-            }
             if (descontoFinal > 100) {
                 throw new ValidationException("O máximo de desconto possível é 100%");
             }
@@ -272,9 +266,6 @@ public class JFrameFinalizarVenda extends javax.swing.JFrame {
         subtotal = Math.round(vlTotalVenda - (vlTotalVenda * (descontoFinal / 100)));
         descontoFinal = Math.round(100 - ((subtotal * 100) / vlTotalVenda));
         
-        if (subtotal <= 0) {
-            throw new ValidationException("O valor mínimo possível é 0.0");
-        }
         if (descontoFinal > 100) {
             throw new ValidationException("O máximo de desconto possível é 100%");
         }
